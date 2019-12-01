@@ -7,3 +7,5 @@ services:
         command: sh -c "/server.sh"
         environment:
             - HOST_DOMAIN
+        ports:
+            - "443:443"
