@@ -4,3 +4,6 @@ services:
         build: .
         volumes:
             - ./ssserver:/ssserver
+        command: sh -c "/server.sh"
+        environment:
+            - HOST_DOMAIN
