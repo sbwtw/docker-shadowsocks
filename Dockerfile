@@ -1,9 +1,7 @@
 FROM archlinux:latest
 
-# update database
-RUN pacman -Syy --noconfirm
 # install dependencies
-RUN pacman -S --noconfirm shadowsocks-v2ray-plugin libsodium pwgen procps
+RUN pacman -Sy --noconfirm shadowsocks-v2ray-plugin libsodium pwgen procps
 
 VOLUME /ssserver
 
