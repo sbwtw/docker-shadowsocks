@@ -1,6 +1,8 @@
 version: '3'
 services:
     ssserver:
+        image: ssserver
+        container_name: ssserver
         build: .
         volumes:
             - ./ssserver:/ssserver
