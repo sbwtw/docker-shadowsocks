@@ -1,2 +1,4 @@
-ssserver/
+certs/
 .env
+
+shadowsocks-*.xz
