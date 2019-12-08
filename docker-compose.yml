@@ -5,6 +5,8 @@ services:
         container_name: ssserver
         restart: always
         build: .
+        volumes:
+            - ./certs:/etc/certs/
         command: sh -c "/server.sh"
         environment:
             - HOST_DOMAIN
@@ -16,6 +18,8 @@ services:
         container_name: ssclient
         restart: always
         build: .
+        volumes:
+            - ./certs:/etc/certs/
         command: sh -c "/client.sh"
         environment:
             - HOST_DOMAIN
