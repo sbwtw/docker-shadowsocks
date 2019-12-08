@@ -4,8 +4,8 @@ FROM archlinux:latest
 RUN pacman -Sy --noconfirm shadowsocks-v2ray-plugin libsodium pwgen procps
 
 # Add shadowsocks
-#ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.7.2/shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
-ADD shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
+ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.7.2/shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
+#ADD shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
 
 # certs volume
 VOLUME /etc/certs
