@@ -1,4 +1,10 @@
-#!/bin/bash
+#!/bin/sh
+
+if [ x"$PASSWORD" = x ]
+then
+    PASSWORD=$(pwgen -r -s -1 11)
+fi
+
 echo "Password is: $PASSWORD"
 echo "Host is: $HOST_DOMAIN"
 

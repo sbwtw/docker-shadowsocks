@@ -7,7 +7,7 @@ services:
         build: .
         volumes:
             - ./certs:/etc/certs/
-        command: sh -c "/server.sh"
+        command: sh -c /server.sh
         environment:
             - HOST_DOMAIN
             - ENCRYPT_METHOD
@@ -20,10 +20,12 @@ services:
         build: .
         volumes:
             - ./certs:/etc/certs/
-        command: sh -c "/client.sh"
+        command: sh -c /client.sh
         environment:
             - HOST_DOMAIN
+            - HOST_PORT
             - ENCRYPT_METHOD
             - PASSWORD
+            - LISTEN_PORT
         ports:
-            - 8081:8081
+            - 5060:1080
