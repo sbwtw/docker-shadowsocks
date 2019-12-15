@@ -2,3 +2,4 @@ certs/
 .env
 
 shadowsocks-*.xz
+v2ray-plugin-*.gz

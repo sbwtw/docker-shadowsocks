@@ -1,20 +1,23 @@
-FROM archlinux:latest
+FROM alpine:latest
 
-# install dependencies
-RUN pacman -Sy --noconfirm shadowsocks-v2ray-plugin libsodium pwgen procps; pacman -Scc --noconfirm
+FROM alpine:latest
+LABEL Maintainer="sbw <sbw@sbw.so>" \
+      Description="Shadowsocks with v2ray plugin"
 
-# Add shadowsocks
-ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.7.2/shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
-#ADD shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
+RUN apk --update add \
+        libsodium \
+        pwgen \
+    && rm -rf /var/cache/apk/*
+
+# Add shadowsocks & v2ray
+#ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.7.2/shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
+#ADD https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.2.0/v2ray-plugin-linux-amd64-v1.2.0.tar.gz /v2ray
+ADD shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
+ADD v2ray-plugin-linux-amd64-v1.2.0.tar.gz /v2ray
+
 
 # certs volume
 VOLUME /etc/certs
 
-RUN echo "#!/bin/bash" > /server.sh; \
-    echo "PASSWORD=\"$(pwgen -r -s -1 11)\"" >> /server.sh; \
-    echo "echo \"Password is: \$PASSWORD\"" >> /server.sh; \
-    echo "/shadowsocks/ssserver -m \"\$ENCRYPT_METHOD\" -s [::]:443 -k \"\$PASSWORD\" --plugin v2ray-plugin --plugin-opts \"server;tls;host=\"\$HOST_DOMAIN\";cert=/etc/certs/fullchain.pem;key=/etc/certs/privkey.pem\"" >> /server.sh; \
-    chmod +x /server.sh; \
-    echo "#!/bin/bash" > /client.sh; \
-    echo "/shadowsocks/sslocal -m \"\$ENCRYPT_METHOD\" -b [::]:8081 -k \"\$PASSWORD\" --plugin v2ray-plugin --plugin-opts \"tls;host=\"\$HOST_DOMAIN\";cert=/etc/certs/fullchain.pem;key=/etc/certs/privkey.pem\"" >> /client.sh; \
-    chmod +x /client.sh
+COPY server.sh /server.sh
+COPY client.sh /client.sh
