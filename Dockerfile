@@ -1,21 +1,18 @@
 FROM alpine:latest
 LABEL Maintainer="sbw <sbw@sbw.so>" \
-      Description="Shadowsocks with v2ray plugin"
+      Description="Shadowsocks server with v2ray plugin"
+
+# change mirror
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 RUN apk --update add \
         libsodium \
-        pwgen \
     && rm -rf /var/cache/apk/*
 
 # Add shadowsocks & v2ray
-ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.7.2/shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
-ADD https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.2.0/v2ray-plugin-linux-amd64-v1.2.0.tar.gz /v2ray
-#ADD shadowsocks-v1.7.2-stable.x86_64-unknown-linux-musl.tar.xz /shadowsocks
-#ADD v2ray-plugin-linux-amd64-v1.2.0.tar.gz /v2ray
+ADD https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.8.8/shadowsocks-v1.8.8-stable.x86_64-unknown-linux-musl.tar.xz /usr/bin
+ADD https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.0/v2ray-plugin-linux-amd64-v1.3.0.tar.gz /usr/bin
+#ADD shadowsocks-v1.8.8-stable.x86_64-unknown-linux-musl.tar.xz /usr/bin
+#ADD v2ray-plugin-linux-amd64-v1.3.0.tar.gz /usr/bin
 
-
-# certs volume
-VOLUME /etc/certs
-
-COPY server.sh /server.sh
-COPY client.sh /client.sh
+CMD ["ssserver", "-U", "-c", "/shadowsocks.json"]
