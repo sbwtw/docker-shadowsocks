@@ -10,8 +10,8 @@ RUN apk --update add \
     && rm -rf /var/cache/apk/*
 
 # Add shadowsocks & v2ray
-wget -qO- https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.8.8/shadowsocks-v1.8.8-stable.x86_64-unknown-linux-musl.tar.xz | tar xvz - -C /usr/bin
-wget -qO- https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.0/v2ray-plugin-linux-amd64-v1.3.0.tar.gz | tar xvz - -C /usr/bin
+RUN wget -qO- https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.8.8/shadowsocks-v1.8.8-stable.x86_64-unknown-linux-musl.tar.xz | tar xvz - -C /usr/bin \
+    && wget -qO- https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.3.0/v2ray-plugin-linux-amd64-v1.3.0.tar.gz | tar xvz - -C /usr/bin
 #ADD shadowsocks-v1.8.8-stable.x86_64-unknown-linux-musl.tar.xz /usr/bin
 #ADD v2ray-plugin-linux-amd64-v1.3.0.tar.gz /usr/bin
 
