@@ -10,4 +10,4 @@ RUN wget https://github.com/shadowsocks/shadowsocks-rust/releases/download/v1.14
     && tar xf shadowsocks-v1.14.3.x86_64-unknown-linux-gnu.tar.xz -C / \
     && rm *.tar.xz *.tar.gz
 
-CMD ["/ssserver", "-c", "/shadowsocks.json", "-U", "--tcp-no-delay", "--tcp-fast-open", "--dns", "google,cloudflare"]
+CMD ["/ssserver", "-c", "/shadowsocks.json"]
