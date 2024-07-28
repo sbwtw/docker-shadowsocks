@@ -1,7 +1,6 @@
-version: '3'
 services:
   ss-server:
-    build: .
+    image: shadowsocks
     restart: always
     ports:
       - 443:443
